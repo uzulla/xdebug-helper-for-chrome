@@ -1,0 +1,52 @@
+{
+	"name": "Xdebug",
+	"description": "Xdebug for Chrome",
+	"version": "1.0.0",
+	"author": "gxumyd@gmail.com",
+
+	"manifest_version": 2,
+	"minimum_chrome_version": "20",
+	"permissions": [ "tabs", "*://*/*" ],
+	"icons": {
+		"16": "images/icon_16x16.png",
+		"48": "images/icon_48x48.png",
+		"128": "images/icon_128x128.png",
+		"256": "images/icon_256x256.png",
+		"512": "images/icon_256x256.png"
+	},
+
+	"options_page": "options.html",
+
+	"browser_action": {
+		"default_icon": "images/bug-gray.png",
+		"default_title": "Debugging, profiling & tracing disabled",
+		"default_popup" : "popup.html"
+	},
+	"content_scripts": [ {
+		"js": [ "content.js" ],
+		"matches": [ "*://*/*" ]
+	} ],
+	"background": {
+		"scripts": [ "background.js" ],
+		"persistent": false
+	},
+
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+X",
+				"windows": "Ctrl+Shift+X",
+				"mac": "Command+Shift+X"
+			},
+			"description": "Open popup to toggle state"
+		},
+		"toggle_debug_action": {
+			"suggested_key": {
+				"default": "Alt+Shift+X",
+				"windows": "Alt+Shift+X",
+				"mac": "Alt+Shift+X"
+			},
+			"description": "Toggle between the debug states"
+		}
+	}
+}
