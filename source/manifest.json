@@ -1,6 +1,6 @@
 {
-	"name": "Xdebug",
-	"description": "Xdebug for Chrome",
+	"name": "Xdebug Chrome Extension",
+	"description": "Xdebug Chrome Extension, Step Debugging, Profiling and Tracing PHP Web Pages for PHP Developer.",
 	"version": "1.0.0",
 	"author": "gxumyd@gmail.com",
 
