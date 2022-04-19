@@ -7,15 +7,14 @@ debugging, profiling and tracing of your PHP-code easily.
 
 Hotkeys
 -------
-Ctrl+Shift+X (Cmd+Shift+X on Mac) opens the popup.  
-Alt+Shift+X toggles the debugging state.
+Alt+Shift+X (Cmd+Shift+X on Mac) opens the popup, or toggles the debugging state when popup disabled.
 
 How to install this extension?
 ------------------------------
-**Stable version:** Go to the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/eadndfjplgieldjbigjakmdgkmoaaaoc)
+**Stable version:** Go to the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/xdebug-chrome-extension/oiofkammbajfehgpleginfomeppgnglk)
 and click "Add to Chrome".
 
-**Development version:** [Download the source from GitHub](https://github.com/mac-cain13/xdebug-helper-for-chrome/archive/master.zip)
+**Development version:** [Download the source from GitHub](https://github.com/mydogger/xdebug-helper-for-chrome/archive/refs/heads/master.zip)
 and [load the extension into Chrome](http://developer.chrome.com/extensions/getstarted.html#unpacked)
 yourself!
 
@@ -37,11 +36,5 @@ There is also [Firefox version](https://github.com/BrianGilbert/xdebug-helper-fo
 
 License
 -------
-The code of this project is licensed under the [MIT license](https://raw.github.com/mac-cain13/xdebug-helper-for-chrome/master/source/License)
+The code of this project is licensed under the [MIT license](https://raw.github.com/mydogger/xdebug-helper-for-chrome/master/source/License)
 so you can use it in nearly every project you want to, commercial and non-commercial.
-
-Special thanks
---------------
-* [remailednet](http://blog.remailed.net) for creating the original [XDebug Enabler](https://chrome.google.com/webstore/detail/eippbhbeglgcphcjmpjcjinjamabeoln) for Chrome
-* [Guilherme Pim](https://github.com/pimguilherme) for contributing a Manifest v2 version
-* [All contributors](https://github.com/mac-cain13/xdebug-helper-for-chrome/graphs/contributors) for taking the time to create a pull request

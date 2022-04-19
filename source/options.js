@@ -1,103 +1,36 @@
-(function () {
+import {Xdebug} from "./Xdebug.js";
 
-	// setTimeout() return value
-	let disablePopupTimeout;
+(async function () {
+    let xdebug = new Xdebug();
+    await xdebug.init();
+    document.getElementById('ide_key').value = xdebug.ide_key;
+    document.getElementById('profile_key').value = xdebug.profile_key;
+    document.getElementById('trace_key').value = xdebug.trace_key;
+    document.getElementById('disable-popup').checked = xdebug.disablePopup;
+}());
 
-	function save_options()
-	{
-		localStorage["xdebugIdeKey"] = document.getElementById("idekey").value;
-		localStorage["xdebugTraceTrigger"] = document.getElementById("tracetrigger").value;
-		localStorage["xdebugProfileTrigger"] = document.getElementById("profiletrigger").value;
-		localStorage.xdebugDisablePopup = document.getElementById('disable-popup').checked ? '1' : '0';
-	}
+// most used keys
+let mostUsedKeys = document.getElementsByClassName('most_used_key');
+for (let i = 0; i < mostUsedKeys.length; i++) {
+    mostUsedKeys[i].addEventListener('click', function () {
+        document.getElementById('ide_key').value = mostUsedKeys[i].innerHTML;
+        document.getElementsByClassName('save-button')[0].click();
+    });
+}
 
-	function restore_options()
-	{
-		// Restore IDE Key
-		idekey = localStorage["xdebugIdeKey"];
+// save setting
+let buttons = document.getElementsByClassName('save-button');
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function () {
+        let ide_key = document.getElementById('ide_key').value;
+        let trace_key = document.getElementById('trace_key').value;
+        let profile_key = document.getElementById('profile_key').value;
+        chrome.storage.sync.set({ide_key, trace_key, profile_key});
+    });
+}
 
-		if (!idekey)
-		{
-			idekey = "XDEBUG_ECLIPSE";
-		}
-
-		if (idekey == "XDEBUG_ECLIPSE" || idekey == "netbeans-xdebug" || idekey == "macgdbp" || idekey == "PHPSTORM")
-		{
-			$("#ide").val(idekey);
-			$("#idekey").prop('disabled', true);
-		}
-		else
-		{
-			$("#ide").val("null");
-			$("#idekey").prop('disabled', false);
-		}
-		$('#idekey').val(idekey);
-
-		// Restore Trace Triggers
-		var traceTrigger = localStorage["xdebugTraceTrigger"];
-		if (traceTrigger !== null)	{
-			$("#tracetrigger").val(traceTrigger);
-		} else {
-			$("#tracetrigger").val(null);
-		}
-
-		// Restore Profile Triggers
-		var profileTrigger = localStorage["xdebugProfileTrigger"];
-		if (profileTrigger !== null)	{
-			$("#profiletrigger").val(profileTrigger);
-		} else {
-			$("#profiletrigger").val(null);
-		}
-
-		// Restore Disable Popup
-		document.getElementById('disable-popup').checked = (localStorage.xdebugDisablePopup === '1') ? true : false;
-	}
-
-	$(function()
-	{
-		$("#ide").change(function ()
-		{
-			if ($("#ide").val() != "null")
-			{
-				$("#idekey").prop('disabled', true);
-				$("#idekey").val($("#ide").val());
-
-				save_options();
-			}
-			else
-			{
-				$("#idekey").prop('disabled', false);
-			}
-		});
-
-		$("#idekey").change(save_options);
-
-		// Persist Disable Popup on onChange event
-		$('#disable-popup').change(disablePopupChanged);
-
-		$('.save-button').click(save_options);
-
-		restore_options();
-	});
-
-	/**
-	 * Disable Popup checkbox changed, persist it.
-	 */
-	function disablePopupChanged() {
-		const $disablePopupSaved = $('.disable-popup-saved');
-
-		$disablePopupSaved.addClass('show');
-
-		// First clear interval
-		clearInterval(disablePopupTimeout);
-		// Hide after 2 seconds
-		disablePopupTimeout = setTimeout(() => $disablePopupSaved.removeClass('show'), 2000);
-
-		// Persist
-		save_options();
-
-		// We need to reload the extension, because to hide the popup
-        chrome.extension.getBackgroundPage().window.location.reload(true);
-	}
-
-})();
+// disable popup
+document.getElementById('disable-popup').addEventListener('change', async function (event, elem) {
+    let isChecked = event.target.checked;
+    await chrome.storage.sync.set({disablePopup: isChecked ? 1 : 0});
+});
