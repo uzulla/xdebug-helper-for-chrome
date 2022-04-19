@@ -1,52 +1,45 @@
 {
-	"name": "Xdebug Chrome Extension",
-	"description": "Xdebug Chrome Extension, Step Debugging, Profiling and Tracing PHP Web Pages for PHP Developer.",
-	"version": "1.0.0",
-	"author": "gxumyd@gmail.com",
-
-	"manifest_version": 2,
-	"minimum_chrome_version": "20",
-	"permissions": [ "activeTab", "*://*/*" ],
-	"icons": {
-		"16": "images/icon_16x16.png",
-		"48": "images/icon_48x48.png",
-		"128": "images/icon_128x128.png",
-		"256": "images/icon_256x256.png",
-		"512": "images/icon_256x256.png"
-	},
-
-	"options_page": "options.html",
-
-	"browser_action": {
-		"default_icon": "images/bug-gray.png",
-		"default_title": "Debugging, profiling & tracing disabled",
-		"default_popup" : "popup.html"
-	},
-	"content_scripts": [ {
-		"js": [ "content.js" ],
-		"matches": [ "*://*/*" ]
-	} ],
-	"background": {
-		"scripts": [ "background.js" ],
-		"persistent": false
-	},
-
-	"commands": {
-		"_execute_browser_action": {
-			"suggested_key": {
-				"default": "Ctrl+Shift+X",
-				"windows": "Ctrl+Shift+X",
-				"mac": "Command+Shift+X"
-			},
-			"description": "Open popup to toggle state"
-		},
-		"toggle_debug_action": {
-			"suggested_key": {
-				"default": "Alt+Shift+X",
-				"windows": "Alt+Shift+X",
-				"mac": "Alt+Shift+X"
-			},
-			"description": "Toggle between the debug states"
-		}
-	}
+  "name": "Xdebug Chrome Extension",
+  "description": "Xdebug Chrome Extension, Step Debugging, Profiling and Tracing PHP Web Pages for PHP Developer.",
+  "version": "3.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "cookies"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/icon_16x16.png",
+      "32": "/images/icon_32x32.png",
+      "48": "/images/icon_48x48.png",
+      "128": "/images/icon_128x128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/icon_16x16.png",
+    "32": "/images/icon_32x32.png",
+    "48": "/images/icon_48x48.png",
+    "128": "/images/icon_128x128.png"
+  },
+  "options_page": "options.html",
+  "commands": {
+    "_execute_action": {
+      "desc": "Hotkeys for displaying popup or toggling xdebug mode.",
+      "suggested_key": {
+        "windows": "Alt+Shift+X",
+        "mac": "Command+Shift+X",
+        "chromeos": "Alt+Shift+X",
+        "linux": "Alt+Shift+X"
+      }
+    }
+  }
 }

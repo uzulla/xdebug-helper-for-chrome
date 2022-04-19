@@ -1,0 +1,4 @@
+export const COOKIE_DEBUG = 'XDEBUG_SESSION';
+export const COOKIE_PROFILE = 'XDEBUG_PROFILE';
+export const COOKIE_TRACE = 'XDEBUG_TRACE';
+
