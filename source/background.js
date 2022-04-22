@@ -1,13 +1,17 @@
 import {Xdebug} from './Xdebug.js';
 
-chrome.runtime.onInstalled.addListener(() => {
-    let defaultSetting = {
-        ide_key: 'PHPSTORM',
-        trace_key: '',
-        profile_key: '',
-        disablePopup: 0
-    };
-    chrome.storage.sync.set(defaultSetting);
+chrome.runtime.onInstalled.addListener(async () => {
+    let xdebug = new Xdebug();
+    await xdebug.init();
+    if (!xdebug.ide_key) {  // Fix setting reset when updated
+        let defaultSetting = {
+            ide_key: 'PHPSTORM',
+            trace_key: '',
+            profile_key: '',
+            disablePopup: 0
+        };
+        chrome.storage.sync.set(defaultSetting);
+    }
 });
 
 chrome.tabs.onActivated.addListener(Xdebug.onPageChange);
