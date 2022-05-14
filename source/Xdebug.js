@@ -64,10 +64,10 @@ class Xdebug {
                 await cookie.setCookie(Constants.COOKIE_DEBUG, this.ide_key)
                 break;
             case Xdebug.MODE_PROFILE:
-                await cookie.setCookie(Constants.COOKIE_PROFILE, this.trace_key)
+                await cookie.setCookie(Constants.COOKIE_PROFILE, this.profile_key)
                 break;
             case Xdebug.MODE_TRACE:
-                await cookie.setCookie(Constants.COOKIE_TRACE, this.profile_key)
+                await cookie.setCookie(Constants.COOKIE_TRACE, this.trace_key)
                 break;
             case Xdebug.MODE_DISABLE:
                 break;
