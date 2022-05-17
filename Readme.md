@@ -18,6 +18,12 @@ and click "Add to Chrome".
 and [load the extension into Chrome](http://developer.chrome.com/extensions/getstarted.html#unpacked)
 yourself!
 
+
+How does this differ from mac-cain13 forked version?
+------------------------------
++ Fix known bugs
++ Updated to Chrome extension MV3, [MV2 can no longer run in Chrome after Jan. 2023](https://developer.chrome.com/docs/extensions/mv3/mv2-sunset/).
+
 How do I contribute?
 --------------------
 A: [Submit issues and ideas](https://github.com/mydogger/xdebug-helper-for-chrome/issues)

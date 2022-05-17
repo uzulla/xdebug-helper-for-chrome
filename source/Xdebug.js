@@ -76,13 +76,15 @@ class Xdebug {
 
     static async refreshIcon() {
         let mode = await  Xdebug.getCurrentMode();
+        const queryOptions = {active: true, currentWindow: true};
+        let [tab] = await chrome.tabs.query(queryOptions);
         let icons = {
             [Xdebug.MODE_DISABLE]: "/images/bug-gray.png",
             [Xdebug.MODE_PROFILE]: "/images/clock.png",
             [Xdebug.MODE_DEBUG]: "/images/bug.png",
             [Xdebug.MODE_TRACE]: "/images/script.png",
         }
-        await chrome.action.setIcon({path: icons[mode]});
+        await chrome.action.setIcon({path: icons[mode], tabId: tab.id});
     }
 
     static async toggleDebug() {
