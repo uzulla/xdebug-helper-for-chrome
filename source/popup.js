@@ -14,6 +14,17 @@ window.onload = async function () {
         });
     });
 
+    // settings button event
+    let settingsButton = document.getElementById('open-settings');
+    if (settingsButton) {
+        settingsButton.addEventListener("click", function() {
+            // Open options page
+            chrome.runtime.openOptionsPage();
+            // close popup
+            window.close();
+        });
+    }
+
     let mode = await Xdebug.getCurrentMode();
     document.getElementById('action-'+mode).classList.add('active');
 };
