@@ -2,6 +2,7 @@
   "name": "Xdebug Chrome Extension",
   "description": "Xdebug Chrome Extension, Step Debugging, Profiling and Tracing PHP Web Pages for PHP Developer.",
   "version": "3.0.3",
+  "author": "uzulla (zishida@gmail.com)",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js",
