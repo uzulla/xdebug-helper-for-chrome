@@ -7,6 +7,13 @@ import {Xdebug} from "./Xdebug.js";
     document.getElementById('profile_key').value = xdebug.profile_key;
     document.getElementById('trace_key').value = xdebug.trace_key;
     document.getElementById('disable-popup').checked = xdebug.disablePopup;
+    
+    // Get version from manifest.json and update the version display
+    const manifestData = await fetch(chrome.runtime.getURL('manifest.json')).then(response => response.json());
+    const versionElement = document.querySelector('.version');
+    if (versionElement) {
+        versionElement.textContent = `Xdebugを開始する君 v${manifestData.version}`;
+    }
 }());
 
 // most used keys
