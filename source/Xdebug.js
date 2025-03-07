@@ -138,8 +138,33 @@ class Xdebug {
     }
 
     static async onPageChange() {
-        await Xdebug.refreshIcon();
-        await Xdebug.checkPopup();
+        try {
+            // Get the current tab
+            const queryOptions = {active: true, currentWindow: true};
+            let [tab] = await chrome.tabs.query(queryOptions);
+            
+            // Only proceed if we have a valid tab with a URL
+            if (tab && tab.url && !tab.url.startsWith('chrome-extension:')) {
+                // Initialize a cookie helper for this tab
+                let cookie = new CookieHelper();
+                await cookie.init();
+                
+                // If we have a valid origin, check the cookies and update the icon
+                if (cookie.origin) {
+                    await Xdebug.refreshIcon();
+                } else {
+                    // If no valid origin, set to disabled state
+                    await chrome.action.setIcon({path: "/images/bug-gray.png", tabId: tab.id});
+                    await chrome.action.setBadgeText({text: "", tabId: tab.id});
+                }
+            }
+            
+            // Always check popup settings
+            await Xdebug.checkPopup();
+        } catch (error) {
+            console.error("Error in onPageChange:", error);
+            // Ensure we don't break the extension if there's an error
+        }
     }
 }
 

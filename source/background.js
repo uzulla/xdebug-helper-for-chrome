@@ -17,8 +17,18 @@ chrome.runtime.onInstalled.addListener(async () => {
     await Xdebug.refreshIcon();
 });
 
+// Listen for tab activation (switching tabs)
 chrome.tabs.onActivated.addListener(Xdebug.onPageChange);
-chrome.tabs.onUpdated.addListener(Xdebug.onPageChange);
+
+// Listen for tab updates (including page loads and reloads)
+// The third parameter (changeInfo) contains information about what changed
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    // Only trigger when the page has completed loading
+    // This ensures we update the icon after the page is fully loaded
+    if (changeInfo.status === 'complete') {
+        Xdebug.onPageChange();
+    }
+});
 
 chrome.action.onClicked.addListener(async () =>{
     await Xdebug.toggleDebug();

@@ -1,7 +1,7 @@
 {
   "name": "Xdebugを開始する君",
   "description": "PHP開発者向けのChrome拡張機能。PHPウェブページのステップデバッグ、プロファイリング、トレースのためにxdebugをトリガーします。",
-  "version": "2025.03.07.3",
+  "version": "2025.03.07.4",
   "author": "uzulla (zishida@gmail.com)",
   "manifest_version": 3,
   "background": {
