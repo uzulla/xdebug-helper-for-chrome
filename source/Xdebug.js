@@ -75,9 +75,11 @@ class Xdebug {
     }
 
     static async refreshIcon() {
-        let mode = await  Xdebug.getCurrentMode();
+        let mode = await Xdebug.getCurrentMode();
         const queryOptions = {active: true, currentWindow: true};
         let [tab] = await chrome.tabs.query(queryOptions);
+        
+        // Set the appropriate icon based on mode
         let icons = {
             [Xdebug.MODE_DISABLE]: "/images/bug-gray.png",
             [Xdebug.MODE_PROFILE]: "/images/clock.png",
@@ -85,6 +87,35 @@ class Xdebug {
             [Xdebug.MODE_TRACE]: "/images/script.png",
         }
         await chrome.action.setIcon({path: icons[mode], tabId: tab.id});
+        
+        // Add badge indicator for active modes
+        if (mode !== Xdebug.MODE_DISABLE) {
+            // Set badge text and color based on mode
+            let badgeText = "";
+            let badgeColor = "";
+            
+            switch (mode) {
+                case Xdebug.MODE_DEBUG:
+                    badgeText = "D";
+                    badgeColor = "#FF0000"; // Red
+                    break;
+                case Xdebug.MODE_PROFILE:
+                    badgeText = "P";
+                    badgeColor = "#0000FF"; // Blue
+                    break;
+                case Xdebug.MODE_TRACE:
+                    badgeText = "T";
+                    badgeColor = "#800080"; // Purple
+                    break;
+            }
+            
+            // Apply badge
+            await chrome.action.setBadgeText({text: badgeText, tabId: tab.id});
+            await chrome.action.setBadgeBackgroundColor({color: badgeColor, tabId: tab.id});
+        } else {
+            // Clear badge for disabled mode
+            await chrome.action.setBadgeText({text: "", tabId: tab.id});
+        }
     }
 
     static async toggleDebug() {

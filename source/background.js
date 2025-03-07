@@ -12,6 +12,9 @@ chrome.runtime.onInstalled.addListener(async () => {
         };
         chrome.storage.sync.set(defaultSetting);
     }
+    
+    // Initialize icon and badge
+    await Xdebug.refreshIcon();
 });
 
 chrome.tabs.onActivated.addListener(Xdebug.onPageChange);
