@@ -13,15 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Get current date
+      - name: Get current date and time
         id: date
-        run: echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
+        run: |
+          echo "DATE=$(date +'%Y.%m.%d-%H.%M.%S')" >> $GITHUB_OUTPUT
+          echo "MANIFEST_VERSION=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
 
       - name: Update version in manifest.json
         run: |
-          sed -i 's/"version": "[^"]*"/"version": "${{ steps.date.outputs.DATE }}"/' source/manifest.json
+          sed -i 's/"version": "[^"]*"/"version": "${{ steps.date.outputs.MANIFEST_VERSION }}"/' source/manifest.json
           cat source/manifest.json
 
       - name: Create zip file
@@ -30,25 +32,14 @@ jobs:
           zip -r ../xdebug-helper-for-chrome-${{ steps.date.outputs.DATE }}.zip .
           cd ..
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release and Upload Asset
+        uses: softprops/action-gh-release@v2
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: v${{ steps.date.outputs.DATE }}
-          release_name: Release ${{ steps.date.outputs.DATE }}
-          body: |
-            ${{ github.event.inputs.description }}
+          name: Release ${{ steps.date.outputs.DATE }}
+          body: ${{ github.event.inputs.description }}
           draft: false
           prerelease: false
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./xdebug-helper-for-chrome-${{ steps.date.outputs.DATE }}.zip
-          asset_name: xdebug-helper-for-chrome-${{ steps.date.outputs.DATE }}.zip
-          asset_content_type: application/zip
+          files: |
+            ./xdebug-helper-for-chrome-${{ steps.date.outputs.DATE }}.zip
