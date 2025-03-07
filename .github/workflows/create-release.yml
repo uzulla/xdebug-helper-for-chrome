@@ -15,31 +15,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get current date and time
-        id: date
+      - name: Get version from manifest.json
+        id: version
         run: |
-          echo "DATE=$(date +'%Y.%m.%d-%H.%M.%S')" >> $GITHUB_OUTPUT
-          echo "MANIFEST_VERSION=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
-
-      - name: Update version in manifest.json
-        run: |
-          sed -i 's/"version": "[^"]*"/"version": "${{ steps.date.outputs.MANIFEST_VERSION }}"/' source/manifest.json
-          cat source/manifest.json
+          VERSION=$(node -e "const fs = require('fs'); const manifest = JSON.parse(fs.readFileSync('source/manifest.json', 'utf8')); console.log(manifest.version);")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Using version: $VERSION"
 
       - name: Create zip file
         run: |
           cd source
-          zip -r ../xdebug-helper-for-chrome-${{ steps.date.outputs.DATE }}.zip .
+          zip -r ../xdebug-helper-for-chrome-v${{ steps.version.outputs.VERSION }}.zip .
           cd ..
 
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: v${{ steps.date.outputs.DATE }}
-          name: Release ${{ steps.date.outputs.DATE }}
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: Release v${{ steps.version.outputs.VERSION }}
           body: ${{ github.event.inputs.description }}
           draft: false
           prerelease: false
           files: |
-            ./xdebug-helper-for-chrome-${{ steps.date.outputs.DATE }}.zip
+            ./xdebug-helper-for-chrome-v${{ steps.version.outputs.VERSION }}.zip
