@@ -1,7 +1,7 @@
 {
-  "name": "Xdebug Chrome Extension",
-  "description": "Xdebug Chrome Extension, Step Debugging, Profiling and Tracing PHP Web Pages for PHP Developer.",
-  "version": "3.0.3",
+  "name": "Xdebugを開始する君",
+  "description": "PHP開発者向けのChrome拡張機能。PHPウェブページのステップデバッグ、プロファイリング、トレースのためにxdebugをトリガーします。",
+  "version": "2025.03.07.1",
   "author": "uzulla (zishida@gmail.com)",
   "manifest_version": 3,
   "background": {
@@ -34,7 +34,7 @@
   "options_page": "options.html",
   "commands": {
     "_execute_action": {
-      "desc": "Hotkeys for displaying popup or toggling xdebug mode.",
+      "desc": "ポップアップ表示やxdebugモードの切り替えのためのホットキー",
       "suggested_key": {
         "windows": "Alt+Shift+X",
         "mac": "Command+Shift+X",
