@@ -1,9 +1,9 @@
-Xdebug for Google Chrome
+Xdebugを開始する君(Xdebug trigger tool for Google Chrome)
 ===============================
 
-Debugging, profiling and tracing PHP code with [Xdebug](http://xdebug.org/) is very powerful, but enabling
-Xdebug with cookies or adding POST/GET variables is way too hard. This extension will help you to enable/disable
-debugging, profiling and tracing of your PHP-code easily.
+PHPの定番デバッグツールである[Xdebug](http://xdebug.org/)の起動をトリガーするために必要なCookieをワンクリックで設定することができます。
+
+![screen-shot](resource/screen-shot.png)
 
 Fork from
 ---------
