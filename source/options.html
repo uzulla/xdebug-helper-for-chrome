@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>Xdebug Chrome Extension</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xdebug Chrome エクステンション</title>
     <link rel="stylesheet" href="css/icon.css">
     <link rel="stylesheet" href="css/options.css">
 </head>
@@ -10,74 +11,72 @@
 <body>
 <div id="content">
     <div id="heading">
-        <h1>Xdebug Chrome Extension</h1>
-        <p>Easy debugging, profiling and tracing</p>
+        <h1>Xdebug Chrome エクステンション</h1>
+        <p>簡単なデバッグ、プロファイリング、トレース</p>
     </div>
 
-    <h3>Introduction</h3>
+    <h3>はじめに</h3>
     <p class="contentTxt">
-        First install and configure <a target="_blank" href="https://www.xdebug.org/docs/install">Xdebug</a>, then set
-        your IDE key below. Now tell Xdebug to debug, profile or trace by clicking the little bug in the addressbar:
+        まず<a target="_blank" rel="noopener" href="https://www.xdebug.org/docs/install">Xdebug</a>をインストールして設定し、下記にIDE keyを設定してください。アドレスバーの小さなバグアイコンをクリックすることで、Xdebugにデバッグ、プロファイル、トレースを指示できます：
     </p>
     <p class="contentTxt">
-        <i class="material-icons color--gray">bug_report</i> Debugging, profiling &amp; tracing disabled<br/>
-        <i class="material-icons color--green">bug_report</i> Debugging enabled<br/>
-        <i class="material-icons color--blue">alarm</i> Profiling enabled<br/>
-        <i class="material-icons color--deep-purple">find_in_page</i> Tracing enabled
+        <i class="material-icons color--gray">bug_report</i> デバッグ、プロファイリング、トレースは無効<br/>
+        <i class="material-icons color--green">bug_report</i> デバッグ有効<br/>
+        <i class="material-icons color--blue">alarm</i> プロファイリング有効<br/>
+        <i class="material-icons color--deep-purple">find_in_page</i> トレース有効
     </p>
-    <p class="hint">Use Ctrl+Shift+X (Cmd+Shift+X on Mac) to open the popup or Alt+Shift+X to toggle the debugging
-        state.</p>
+    <p class="hint">Ctrl+Shift+X（Macの場合はCmd+Shift+X）でポップアップを開くか、Alt+Shift+Xでデバッグ状態を切り替えることができます。</p>
 
     <h3>IDE key</h3>
-    <p class="note">Set your ide key here, This value should be same with your IDE setting.</p>
+    <p class="note">ここにIDE keyを設定してください。この値はIDEの設定と同じである必要があります。</p>
     <p>
-        <span id="customkey"><input type="text" id="ide_key"/> </span>
-        <button class="save-button">Save</button>
+        <span id="customkey"><input type="text" id="ide_key" placeholder="IDE key" title="IDE key"/> </span>
+        <button class="save-button">保存</button>
     </p>
     <p id="most_used_keys">
-        <span>Most used: </span>
+        <span>よく使われるキー: </span>
         <span class="most_used_key">PHPSTORM</span>
         <span class="most_used_key">XDEBUG_ECLIPSE</span>
         <span class="most_used_key">netbeans</span>
         <span class="most_used_key">macgdbp</span>
     </p>
 
-    <h3>Trace Trigger Value</h3>
-    <p class="note">If your xdebug is configured with a unique trace trigger key,
-        set that value here. This value is blank by default.</p>
+    <h3>トレーストリガー値</h3>
+    <p class="note">Xdebugが独自のトレーストリガーキーで設定されている場合は、
+        ここにその値を設定してください。この値はデフォルトでは空白です。</p>
     <p>
-        <input type="text" id="trace_key" value="">
-        <button class="save-button">Save</button>
+        <input type="text" id="trace_key" value="" placeholder="トレーストリガー値" title="トレーストリガー値">
+        <button class="save-button">保存</button>
     </p>
 
-    <h3>Profile Trigger Value</h3>
-    <p class="note">If your xdebug is configured with a unique profile trigger key,
-        set that value here. This value is blank by default.</p>
+    <h3>プロファイルトリガー値</h3>
+    <p class="note">Xdebugが独自のプロファイルトリガーキーで設定されている場合は、
+        ここにその値を設定してください。この値はデフォルトでは空白です。</p>
     <p>
-        <input type="text" id="profile_key" value="">
-        <button class="save-button">Save</button>
+        <input type="text" id="profile_key" value="" placeholder="プロファイルトリガー値" title="プロファイルトリガー値">
+        <button class="save-button">保存</button>
     </p>
 
-    <h3>Disable Popup</h3>
+    <h3>ポップアップを無効にする</h3>
     <p class="note">
-        If checked, xdebug session will be enabled / disabled by left click on the
-        Xdebug Chrome Extension icon, Xdebug Chrome Extension's popup will be disabled.
+        チェックすると、Xdebug Chrome Extensionアイコンの左クリックでXdebugセッションが有効/無効になり、
+        Xdebug Chrome Extensionのポップアップは無効になります。
     </p>
     <p>
         <label>
             <input type="checkbox" id="disable-popup" value="1">
-            <span>Disable Popup</span>
+            <span>ポップアップを無効にする</span>
         </label>
-        <span class="disable-popup-saved fade">Saved</span>
+        <span class="disable-popup-saved fade">保存しました</span>
     </p>
 
     <footer id="footer">
         <p class="version">
             Xdebug Chrome Extension v3.0.3 <br>
-            Last Updated: 2022-05-17
+            最終更新日: 2022-05-17
         </p>
-        <a href="https://github.com/mydogger/xdebug-helper-for-chrome" class="contribute" target="_blank">
-            Feel free to submit ideas, bugs and pull request to our <span>Github project</span>
+        <a href="https://github.com/mydogger/xdebug-helper-for-chrome" class="contribute" target="_blank" rel="noopener">
+            アイデア、バグ報告、プルリクエストは<span>Githubプロジェクト</span>にお気軽にご提出ください
         </a>
     </footer>
 </div>
