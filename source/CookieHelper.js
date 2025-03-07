@@ -51,23 +51,42 @@ export class CookieHelper {
     async getCookie(name) {
         CookieHelper.checkCookieName(name);
         if (!this.origin) {
-            return ;
+            return;
         }
-        const cookieDetails = {name: name, url: this.origin, storeId: await this.getStoreId()};
-        return await chrome.cookies.get(cookieDetails);
+        try {
+            const cookieDetails = {name: name, url: this.origin, storeId: await this.getStoreId()};
+            return await chrome.cookies.get(cookieDetails);
+        } catch (error) {
+            console.log(`Cookie access error for ${this.origin}: ${error.message}`);
+            return null;
+        }
     }
 
     async deleteCookies(names) {
+        if (!this.origin) {
+            return;
+        }
         for (let name of names) {
-            CookieHelper.checkCookieName(name);
-            let cookieDetails = {name: name, url: this.origin, storeId: await this.getStoreId()};
-            await chrome.cookies.remove(cookieDetails)
+            try {
+                CookieHelper.checkCookieName(name);
+                let cookieDetails = {name: name, url: this.origin, storeId: await this.getStoreId()};
+                await chrome.cookies.remove(cookieDetails);
+            } catch (error) {
+                console.log(`Cookie deletion error for ${this.origin}: ${error.message}`);
+            }
         }
     }
 
     async setCookie(name, value) {
-        CookieHelper.checkCookieName(name);
-        const cookieDetails = {name: name, url: this.origin, value: value, storeId: await this.getStoreId()};
-        await chrome.cookies.set(cookieDetails);
+        if (!this.origin) {
+            return;
+        }
+        try {
+            CookieHelper.checkCookieName(name);
+            const cookieDetails = {name: name, url: this.origin, value: value, storeId: await this.getStoreId()};
+            await chrome.cookies.set(cookieDetails);
+        } catch (error) {
+            console.log(`Cookie set error for ${this.origin}: ${error.message}`);
+        }
     }
 }
